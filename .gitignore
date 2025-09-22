@@ -1,0 +1,23 @@
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+
+# VS Code settings cache
+.vscode/*
+!.vscode/settings.json   # keep project settings in git
+venue-simulation.code-workspace
+
+# Build outputs
+**/dist/
+**/build/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Environment files
+**/.env
+**/.env.local
+**/.env.*
