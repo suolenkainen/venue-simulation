@@ -66,25 +66,23 @@ This project focuses on **number-crunching**, **reproducible stochastic simulati
 4. **Testing & Reproducibility**
    - Add deterministic unit tests for PRNG and simulation outputs.
    - Expand test coverage using Vitest watch mode & coverage reports.
+   - Unit tests and system tests are run separately as the mass grows.
 
 ---
 
 ## Testing
 
-Unit/component tests live under `__tests__/`. Example:
+Tests live under `__tests__/`. Example:
 
 ```tsx
 import { render, screen } from "@testing-library/react";
-import { vi, test, expect } from "vitest";
-import App from "../src/App";
+import { expect, test } from "vitest";
+import App from "../App";
 
-vi.useFakeTimers();
-
-test("renders heading and counts up", () => {
+test("00 renders heading", () => {
   render(<App />);
+
+  // Assert that "This is a test" appears
   expect(screen.getByText("This is a test")).toBeInTheDocument();
-  expect(screen.getByText(/00:00/)).toBeInTheDocument();
-  vi.advanceTimersByTime(3000);
-  expect(screen.getByText(/00:03/)).toBeInTheDocument();
 });
 ```

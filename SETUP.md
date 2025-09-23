@@ -87,22 +87,27 @@ We use **Vitest** + **React Testing Library** for unit/component tests.
 From inside `my-app`:
 
 ```bash
-npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
+npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom @vitest/browser playwright
 ```
 
 ### 2️⃣ Create `vitest.config.ts`
 
 ```ts
-import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   plugins: [react()],
   test: {
-    globals: true,
     environment: "jsdom",
+    browser: {
+      enabled: true,
+      name: "chromium",
+      headless: false,
+    },
+    globals: true,
     setupFiles: "./src/setupTests.ts",
-    include: ["**/*.{test,spec}.{ts,tsx}"],
+    include: ["**/__tests__/*.{test,spec}.{ts,tsx}"], // looks inside __tests__/
   },
 });
 ```
@@ -190,7 +195,7 @@ _(...other file snippets remain the same as before for ESLint, Prettier, package
   - **ESLint**
   - **Prettier – Code Formatter**
 - Start dev server: `npm run dev`
-- Run tests: `npm run test`
+- Run tests: `npm run test -- --ui`
 
 ✅ You now have:
 

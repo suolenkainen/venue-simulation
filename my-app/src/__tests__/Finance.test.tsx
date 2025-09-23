@@ -1,10 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import { expect, test, vi } from "vitest";
+import { expect, test } from "vitest";
 import Finance from "../Finance";
 
-vi.useFakeTimers();
-
-test("check finance tab appears", () => {
+test("00 check finance tab appears", () => {
   render(<Finance />);
 
   // Assert that "Content for Finance" appears

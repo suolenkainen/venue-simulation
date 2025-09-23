@@ -1,10 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import { expect, test, vi } from "vitest";
+import { expect, test } from "vitest";
 import Simulation from "../Simulation";
 
-vi.useFakeTimers();
-
-test("check simulation tab appears", () => {
+test("00 check simulation tab appears", () => {
   render(<Simulation />);
 
   // Assert that "Content for Simulation" appears

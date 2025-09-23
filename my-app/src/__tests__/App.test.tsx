@@ -1,10 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import { expect, test, vi } from "vitest";
+import { expect, test } from "vitest";
 import App from "../App";
 
-vi.useFakeTimers();
-
-test("renders heading", () => {
+test("00 renders heading", () => {
   render(<App />);
 
   // Assert that "This is a test" appears
