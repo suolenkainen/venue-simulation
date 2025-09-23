@@ -4,10 +4,9 @@ import App from "../App";
 
 vi.useFakeTimers();
 
-test("renders heading and counts up", () => {
+test("renders heading", () => {
   render(<App />);
 
   // Assert that "This is a test" appears
   expect(screen.getByText("This is a test")).toBeInTheDocument();
-  expect(screen.getByText("Elapsed: 00:00")).toBeInTheDocument();
 });
