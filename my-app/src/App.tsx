@@ -1,7 +1,9 @@
-import React, { useEffect, useMemo, useRef, useState, type JSX } from "react";
+import React, { useEffect, useState, type JSX } from "react";
 import Finance from "./Finance";
 import Restaurant from "./Restaurant";
 import Simulation from "./Simulation";
+
+import "./global.css";
 
 type TabId = "finance" | "restaurant" | "simulation";
 
@@ -22,12 +24,6 @@ export default function App() {
 
   const [active, setActive] = useState<TabId>(initial);
 
-  const tabRefs = useRef<Record<TabId, HTMLButtonElement | null>>({
-    finance: null,
-    restaurant: null,
-    simulation: null,
-  });
-
   // keep hash in sync
   useEffect(() => {
     if (window.location.hash !== `#${active}`) {
@@ -45,46 +41,7 @@ export default function App() {
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
 
-  const activeIndex = useMemo(
-    () => TABS.findIndex((t) => t.id === active),
-    [active]
-  );
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
-    e.preventDefault();
-    let nextIndex = activeIndex;
-    if (e.key === "ArrowLeft")
-      nextIndex = (activeIndex - 1 + TABS.length) % TABS.length;
-    if (e.key === "ArrowRight") nextIndex = (activeIndex + 1) % TABS.length;
-    if (e.key === "Home") nextIndex = 0;
-    if (e.key === "End") nextIndex = TABS.length - 1;
-    const next = TABS[nextIndex].id;
-    setActive(next);
-    tabRefs.current[next]?.focus();
-  };
-
   const styles = {
-    wrapper: {
-      fontFamily: "system-ui, sans-serif",
-      padding: "20px",
-      maxWidth: 900,
-      margin: "0 auto",
-    },
-    titleRow: {
-      display: "flex",
-      alignItems: "baseline",
-      gap: 12,
-      marginBottom: 8,
-    },
-    timer: { fontVariantNumeric: "tabular-nums" as const, color: "#666" },
-    tablist: {
-      display: "flex",
-      gap: 8,
-      borderBottom: "1px solid #ddd",
-      paddingBottom: 8,
-      marginBottom: 16,
-    } as const,
     tab: (selected: boolean): React.CSSProperties => ({
       appearance: "none",
       padding: "10px 14px",
@@ -100,26 +57,15 @@ export default function App() {
           }
         : { color: "#555" }),
     }),
-    panel: {
-      border: "1px solid #ddd",
-      borderRadius: "0 8px 8px 8px",
-      padding: 16,
-      background: "white",
-    },
   };
 
   return (
-    <div style={styles.wrapper}>
-      <div style={styles.titleRow}>
-        <h1 style={{ margin: 0 }}>This is a test</h1>
+    <div className="wrapper">
+      <div className="row">
+        <h1>This is a test</h1>
       </div>
 
-      <div
-        role="tablist"
-        aria-label="Primary Tabs"
-        style={styles.tablist}
-        onKeyDown={handleKeyDown}
-      >
+      <div className="tablist" role="tablist" aria-label="Primary Tabs">
         {TABS.map((tab) => {
           const selected = tab.id === active;
           return (
@@ -143,12 +89,12 @@ export default function App() {
         const selected = tab.id === active;
         return (
           <section
+            className="tab-panel"
             key={tab.id}
             role="tabpanel"
             id={`${tab.id}-panel`}
             aria-labelledby={`${tab.id}-tab`}
             hidden={!selected}
-            style={styles.panel}
           >
             {tab.render()}
           </section>

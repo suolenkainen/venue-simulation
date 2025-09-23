@@ -7,9 +7,9 @@ test("00 check restaurant tab appears", () => {
   render(<Restaurant />);
 
   // Assert that "basic information appears" appears
-  expect(screen.getByText("(Unnamed)")).toBeInTheDocument();
-  expect(screen.getByText("Name:")).toBeInTheDocument();
-  expect(screen.getByText("Address:")).toBeInTheDocument();
+  expect(screen.getByText("Restaurant")).toBeInTheDocument();
+  expect(screen.getByText("Name")).toBeInTheDocument();
+  expect(screen.getByText("Location")).toBeInTheDocument();
   expect(screen.getByRole("button", { name: "Edit" })).toBeVisible();
   //
 });
@@ -21,7 +21,7 @@ test("01 edit, save, and display name & address", async () => {
 
   // query DOM directly
   const heading = container.querySelector("h2");
-  expect(heading?.textContent).toBe("(Unnamed)");
+  expect(heading?.textContent).toBe("Restaurant");
 
   // click Edit button
   const editButton = container.querySelector("#edit-button");
@@ -77,7 +77,6 @@ test("02 cancel changes", async () => {
   await user.type(addressInput, "124 Main St, Helsinki");
 
   // click Save button (second button in edit mode)
-  console.log("Cancel button");
   const saveButton = container.querySelector("#cancel-button");
   if (saveButton) await user.click(saveButton);
 

@@ -20,28 +20,18 @@ export default function Simulation() {
       fontVariantNumeric: "tabular-nums" as const,
       color: "crimson",
     },
-    row: { display: "flex", alignItems: "center", gap: 12, marginBottom: 12 },
   };
 
   return (
     <div>
-      <h2 style={{ marginTop: 0 }}>Simulation</h2>
+      <h2>Simulation</h2>
       <p>Content for Simulation. Replace with your Simulation view.</p>
 
-      <div style={styles.row}>
+      <div className="row">
         <span style={paused ? styles.pausedtimer : styles.timer}>
           Elapsed: {mm}:{ss}
         </span>
-        <button
-          style={{
-            padding: "4px 10px",
-            borderRadius: 6,
-            border: "1px solid #ccc",
-            background: paused ? "#eee" : "#f5f5f5",
-            cursor: "pointer",
-          }}
-          onClick={() => setPaused((p) => !p)}
-        >
+        <button className="button" onClick={() => setPaused((p) => !p)}>
           {paused ? "Resume" : "Pause"}
         </button>
       </div>

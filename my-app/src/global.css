@@ -1,0 +1,294 @@
+/* =========
+   Theme tokens (tweak freely)
+   ========= */
+:root {
+  --font-family:
+    system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  --c-text: #222;
+  --c-text-muted: #777;
+  --c-label: #444;
+
+  --c-border: #ddd;
+  --c-border-subtle: #eee;
+
+  --c-bg: #fff;
+  --c-bg-subtle: #f7f7f7;
+  --c-bg-panel: #fff;
+
+  --c-btn-bg: #f8f8f8;
+  --c-btn-border: #ccc;
+
+  --c-save-bg: #eaffea;
+  --c-save-border: #22aa77;
+
+  --c-cancel-bg: #ffeeee;
+  --c-cancel-border: #dd7777;
+
+  --c-tab-selected-bg: #f5f5f5;
+  --c-tab-selected-border: #ddd;
+  --c-tab-unselected-text: #555;
+
+  --c-grid: #eee;
+  --c-axis: #888;
+
+  --c-timer: #666;
+  --c-timer-paused: crimson;
+
+  --focus-ring: 0 0 0 3px rgba(100, 150, 250, 0.35);
+}
+
+/* =========
+   Base
+   ========= */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  color: var(--c-text);
+  background: var(--c-bg);
+}
+
+/* wrapper for the main app page */
+.wrapper {
+  padding: var(--space-5);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* page title row (e.g., “This is a test” + controls) */
+.title-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+/* =========
+   Text utilities
+   ========= */
+.muted {
+  color: var(--c-text-muted);
+}
+
+.timer {
+  color: var(--c-timer);
+  font-variant-numeric: tabular-nums;
+}
+.timer--paused {
+  color: var(--c-timer-paused);
+}
+
+/* generic horizontal form row */
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-2) 0;
+}
+
+.label {
+  width: 110px;
+  color: var(--c-label);
+  font-weight: 600;
+}
+.value {
+  color: var(--c-text);
+}
+
+/* =========
+   Buttons
+   ========= */
+.btn {
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--c-btn-border);
+  background: var(--c-btn-bg);
+  cursor: pointer;
+  font: inherit;
+}
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+.btn--save {
+  border-color: var(--c-save-border);
+  background: var(--c-save-bg);
+}
+.btn--cancel {
+  border-color: var(--c-cancel-border);
+  background: var(--c-cancel-bg);
+}
+
+/* =========
+   Details / Accordion
+   ========= */
+details {
+  margin-top: var(--space-4);
+  border-radius: var(--radius-md);
+}
+details > summary {
+  cursor: pointer;
+  font-weight: 700;
+  list-style: none;
+  outline: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* =========
+   Tables
+   ========= */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-2);
+  background: var(--c-bg-panel);
+}
+.table th {
+  text-align: left;
+  padding: 8px 10px;
+  background: var(--c-bg-subtle);
+  border-bottom: 1px solid var(--c-border);
+  font-weight: 700;
+}
+.table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--c-border-subtle);
+  vertical-align: top;
+}
+
+/* “tag” badges (e.g., upgradeable states) */
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid var(--c-border);
+  background: var(--c-bg-subtle);
+  color: var(--c-label);
+}
+.tag--yes {
+  background: var(--c-save-bg);
+  border-color: var(--c-save-border);
+  color: #074;
+}
+.tag--no {
+  background: #f6f6f6;
+  border-color: #ccc;
+  color: #666;
+}
+.tag--sometimes {
+  background: #fff8e6;
+  border-color: #f1c40f;
+  color: #946200;
+}
+.tag--partial {
+  background: #eef5ff;
+  border-color: #6aa3ff;
+  color: #1d4ed8;
+}
+.tag--usually-no {
+  background: #f6f6f6;
+  border-color: #ccc;
+  color: #666;
+}
+
+/* =========
+   Tabs (ARIA-driven)
+   ========= */
+/* container for the tabs (tablist) */
+.tabs {
+  display: flex;
+  gap: 8;
+  border-bottom: 1px solid var(--c-border);
+  padding-bottom: 8;
+  margin-bottom: 16;
+}
+
+/* tab buttons: style by role + aria-selected */
+[role="tab"] {
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px 8px 0 0;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--c-tab-unselected-text);
+  outline-offset: 2px;
+}
+[role="tab"]:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+[role="tab"][aria-selected="true"] {
+  background: var(--c-tab-selected-bg);
+  border: 1px solid var(--c-tab-selected-border);
+  border-bottom-color: var(--c-tab-selected-bg); /* visually connect to panel */
+  color: inherit;
+}
+
+/* tab panels */
+.tab-panel {
+  border: 1px solid var(--c-border);
+  border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
+  padding: var(--space-4);
+  background: var(--c-bg-panel);
+}
+
+/* =========
+   Simple utilities
+   ========= */
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+.mb-1 {
+  margin-bottom: var(--space-1) !important;
+}
+.mb-2 {
+  margin-bottom: var(--space-2) !important;
+}
+.mb-3 {
+  margin-bottom: var(--space-3) !important;
+}
+.mb-4 {
+  margin-bottom: var(--space-4) !important;
+}
+
+.flex {
+  display: flex !important;
+}
+.items-center {
+  align-items: center !important;
+}
+.gap-2 {
+  gap: var(--space-2) !important;
+}
+.gap-3 {
+  gap: var(--space-3) !important;
+}
