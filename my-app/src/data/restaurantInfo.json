@@ -7,7 +7,7 @@
     "space_and_layout": [
       {
         "attribute": "Floor Area",
-        "value": 0.0,
+        "value": 80.0,
         "value_type": "number",
         "unit": "m²",
         "range": "80–600",
@@ -16,7 +16,7 @@
       },
       {
         "attribute": "Ceiling Height",
-        "value": 0.0,
+        "value": 2.5,
         "value_type": "number",
         "unit": "m",
         "range": "2.5–7",
@@ -25,7 +25,7 @@
       },
       {
         "attribute": "Floor Plan Complexity",
-        "value": 0.0,
+        "value": 0.2,
         "value_type": "number",
         "unit": "0–1",
         "range": "0.2–0.9",
@@ -34,18 +34,27 @@
       },
       {
         "attribute": "Number of Rooms",
-        "value": 0.0,
+        "value": 2,
         "value_type": "number",
         "unit": "count",
-        "range": "1–5",
+        "range": "2–5",
         "effect": "More rooms = VIP zones possible but higher maintenance cost.",
+        "upgradeable": "sometimes"
+      },
+      {
+        "attribute": "Number of toilets",
+        "value": 2,
+        "value_type": "number",
+        "unit": "count",
+        "range": "2–30",
+        "effect": "All toilets capacity in the venue. Seats + urinals.",
         "upgradeable": "sometimes"
       }
     ],
     "show_infrastructure": [
       {
         "attribute": "Stage Size",
-        "value": 0.0,
+        "value": 10.0,
         "value_type": "number",
         "unit": "m²",
         "range": "10–80",
@@ -63,7 +72,7 @@
       },
       {
         "attribute": "Sound Isolation",
-        "value": 0.0,
+        "value": 20,
         "value_type": "number",
         "unit": "dB",
         "range": "20–65",
@@ -72,7 +81,7 @@
       },
       {
         "attribute": "Power Capacity",
-        "value": 0.0,
+        "value": 10,
         "value_type": "number",
         "unit": "kW",
         "range": "10–50",
@@ -83,7 +92,7 @@
     "comfort_and_guest_experience": [
       {
         "attribute": "Air Conditioning / Ventilation",
-        "value": 0.0,
+        "value": 0.2,
         "value_type": "number",
         "unit": "0–1",
         "range": "0.2–1.0",
@@ -92,7 +101,7 @@
       },
       {
         "attribute": "Bar Count",
-        "value": 0.0,
+        "value": 1,
         "value_type": "number",
         "unit": "count",
         "range": "1–4",
@@ -100,17 +109,8 @@
         "upgradeable": true
       },
       {
-        "attribute": "Restroom Count",
-        "value": 0.0,
-        "value_type": "number",
-        "unit": "count",
-        "range": "1–6",
-        "effect": "Too low = guest satisfaction ↓, can cause fines.",
-        "upgradeable": true
-      },
-      {
         "attribute": "Seating Availability",
-        "value": 0.0,
+        "value": 0.5,
         "value_type": "number",
         "unit": "0–1",
         "range": "0–1",
@@ -119,10 +119,10 @@
       },
       {
         "attribute": "Aesthetics / Theme",
-        "value": 0.0,
+        "value": 0.1,
         "value_type": "number",
         "unit": "0–1",
-        "range": "0.3–1.0",
+        "range": "0.1–1.0",
         "effect": "Adds base attractiveness score (demand multiplier).",
         "upgradeable": true
       }
@@ -130,7 +130,7 @@
     "safety_and_compliance": [
       {
         "attribute": "Fire Exits",
-        "value": 0.0,
+        "value": 1,
         "value_type": "number",
         "unit": "count",
         "range": "1–4",
@@ -179,7 +179,7 @@
     "external_and_access": [
       {
         "attribute": "Parking Capacity",
-        "value": 0.0,
+        "value": 0,
         "value_type": "number",
         "unit": "spots",
         "range": "0–80",

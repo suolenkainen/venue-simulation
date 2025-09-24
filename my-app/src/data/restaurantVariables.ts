@@ -3,6 +3,7 @@ import restaurantVariablesJson from "./restaurantVariableData.json";
 export type AttributeRow = {
   variable: string | string[];
   value: string | number | string[];
+  base_value: string | number | string[];
   description: string | string[];
 };
 

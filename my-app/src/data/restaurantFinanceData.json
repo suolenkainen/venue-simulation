@@ -1,0 +1,281 @@
+{
+  "venue_financial_data": [
+    {
+      "category": "Rent / Lease",
+      "billingCycle": "monthly",
+      "typicalBasis": "Floor Area × Location Multiplier",
+      "costFormula": "rent = floorArea_m2 * baseRentPerM2 * locationMultiplier * contractDiscount",
+      "params": {
+        "baseRentPerM2": 1.0,
+        "locationMultiplier": 1.0,
+        "contractDiscount": 1.0
+      },
+      "dependsOn": ["floorArea", "visibilityFootTraffic", "openHoursCap"],
+      "effects": [
+        "Core fixed cost.",
+        "Long contracts reduce monthly rent but increase exit risk.",
+        "High-rent areas often correlate with better location score and capacity."
+      ],
+      "modifiers": [
+        "contractLengthMonths",
+        "zoningCurfew",
+        "visibilityFootTraffic"
+      ],
+      "notes": "Consider adding penalties for early termination of long-term leases."
+    },
+    {
+      "category": "Utilities – Power",
+      "billingCycle": "monthly",
+      "typicalBasis": "Base + Stage Lighting/AV Load + Cooling",
+      "costFormula": "powerCost = basePowerCost + (eventsPerMonth * avgShowHours * stagePower_kW * kWhRate) + (cooling_kWh * kWhRate)",
+      "params": {
+        "basePowerCost": 0,
+        "stagePower_kW": 10,
+        "avgShowHours": 3,
+        "eventsPerMonth": 8,
+        "cooling_kWh": 0,
+        "kWhRate": 0.2
+      },
+      "dependsOn": [
+        "powerCapacity",
+        "lightingQuality",
+        "guestComfort",
+        "openHoursCap"
+      ],
+      "effects": [
+        "Scales with events per month and venue size.",
+        "Spikes with large light shows or heavy A/C usage.",
+        "Poor A/C saves cost but lowers Comfort Score."
+      ],
+      "modifiers": ["seasonHeatwave", "lightingRigTier", "HVAC_Efficiency"],
+      "notes": "Tie cooling_kWh to outside temperature and HVAC efficiency."
+    },
+    {
+      "category": "Utilities – Water",
+      "billingCycle": "monthly",
+      "typicalBasis": "Base + Guest Count × Restroom Use",
+      "costFormula": "waterCost = baseWaterCost + (monthlyGuests * restroomUsePerGuest_L * waterRatePerL)",
+      "params": {
+        "baseWaterCost": 0,
+        "monthlyGuests": 0,
+        "restroomUsePerGuest_L": 6,
+        "waterRatePerL": 0.003
+      },
+      "dependsOn": ["restroomCount", "monthlyAttendance"],
+      "effects": [
+        "Scales with foot traffic.",
+        "Too few restrooms lowers cost slightly but increases penalties/satisfaction drop."
+      ],
+      "modifiers": ["restroomEfficiency", "cleanlinessTarget"],
+      "notes": "Link penalties to guestSatisfaction and complianceEventRisk."
+    },
+    {
+      "category": "Utilities – Heating / Cooling",
+      "billingCycle": "monthly",
+      "typicalBasis": "Floor Area × Season",
+      "costFormula": "hvacCost = floorArea_m2 * seasonSeverityIndex * insulationFactor * energyRate",
+      "params": {
+        "seasonSeverityIndex": 1.0,
+        "insulationFactor": 1.0,
+        "energyRate": 0.15
+      },
+      "dependsOn": ["floorArea", "ceilingHeight", "soundIsolation"],
+      "effects": [
+        "Larger, high-ceiling venues cost more to heat/cool.",
+        "Extreme weather increases cost temporarily.",
+        "Insulation upgrades lower cost and improve Comfort Score."
+      ],
+      "modifiers": ["insulationUpgradeLevel", "weatherEvent"],
+      "notes": "Use degree-days to drive seasonSeverityIndex."
+    },
+    {
+      "category": "Waste Disposal / Cleaning",
+      "billingCycle": "monthly",
+      "typicalBasis": "Guests × Cleanliness Factor",
+      "costFormula": "cleaningCost = monthlyGuests * cleanlinessTarget * cleaningRatePerGuest",
+      "params": {
+        "cleanlinessTarget": 1.0,
+        "cleaningRatePerGuest": 0.25
+      },
+      "dependsOn": ["monthlyAttendance", "cleaningCostMultiplier"],
+      "effects": [
+        "More guests = more trash.",
+        "Low cleaning spend reduces cost but lowers Comfort Score (bad reviews)."
+      ],
+      "modifiers": ["eventTypeMix", "spillEvents", "closingTimeBuffer"],
+      "notes": "Tie under-spend to guestSatisfaction decay and review penalties."
+    },
+    {
+      "category": "Security / Alarm Monitoring",
+      "billingCycle": "monthly",
+      "typicalBasis": "Fixed Monthly Fee",
+      "costFormula": "securityCost = baseSecurityFee * securityTierMultiplier",
+      "params": {
+        "baseSecurityFee": 0,
+        "securityTierMultiplier": 1.0
+      },
+      "dependsOn": ["shutdownRisk", "walkInTrafficMultiplier"],
+      "effects": [
+        "Can reduce theft/vandalism risk events.",
+        "Higher Compliance Score may lower insurance."
+      ],
+      "modifiers": ["neighborhoodRisk", "eventRiskProfile"],
+      "notes": "Enable temporary surcharges for high-risk events."
+    },
+    {
+      "category": "Insurance (Property & Liability)",
+      "billingCycle": "monthly",
+      "typicalBasis": "Floor Area × Risk Profile",
+      "costFormula": "insurancePremium = (floorArea_m2 * basePremiumPerM2 * riskProfileMultiplier) * complianceDiscount",
+      "params": {
+        "basePremiumPerM2": 0.5,
+        "riskProfileMultiplier": 1.0,
+        "complianceDiscount": 1.0
+      },
+      "dependsOn": [
+        "floorArea",
+        "complianceEventRisk",
+        "fireSuppressionRating",
+        "noiseFineRisk"
+      ],
+      "effects": [
+        "Premium drops with higher Compliance & Safety Score.",
+        "Spikes after accidents/incidents."
+      ],
+      "modifiers": ["claimsHistory", "fireSuppressionUpgrade"],
+      "notes": "Link complianceDiscount inversely to shutdownRisk and inspection outcomes."
+    },
+    {
+      "category": "Licensing Fees",
+      "billingCycle": "monthly_or_annual",
+      "typicalBasis": "Monthly/Annual",
+      "costFormula": "licenseCost = baseLicenseFee * licenseScopeMultiplier",
+      "params": {
+        "baseLicenseFee": 0,
+        "licenseScopeMultiplier": 1.0
+      },
+      "dependsOn": ["openHoursCap", "barCount"],
+      "effects": [
+        "Affects ability to sell drinks / host bands.",
+        "Loss triggers forced closure until renewed."
+      ],
+      "modifiers": ["alcoholLicense", "livePerformancePermit"],
+      "notes": "Add grace periods and fines for late renewals."
+    },
+    {
+      "category": "Maintenance / Repairs",
+      "billingCycle": "monthly",
+      "typicalBasis": "% of Venue Value or Floor Area",
+      "costFormula": "maintenanceCost = max(venueValue * maintenanceRate, floorArea_m2 * upkeepPerM2) + randomFailuresCost",
+      "params": {
+        "venueValue": 0,
+        "maintenanceRate": 0.015,
+        "upkeepPerM2": 0.2,
+        "randomFailuresCost": 0
+      },
+      "dependsOn": ["numberOfRooms", "maintenanceCostMultiplier"],
+      "effects": [
+        "Covers routine upkeep and small failures.",
+        "Neglect increases probability of major breakdown events."
+      ],
+      "modifiers": ["preventiveMaintenanceLevel", "ageOfSystems"],
+      "notes": "Track deferred maintenance debt and elevate failure odds over time."
+    },
+    {
+      "category": "Marketing Baseline",
+      "billingCycle": "monthly",
+      "typicalBasis": "Optional but often needed",
+      "costFormula": "marketingSpend = baseMarketingSpend * campaignIntensity",
+      "params": {
+        "baseMarketingSpend": 0,
+        "campaignIntensity": 1.0
+      },
+      "dependsOn": [
+        "venueAttractiveness",
+        "walkInTrafficMultiplier",
+        "socialMediaBuzz"
+      ],
+      "effects": [
+        "If you stop marketing, base demand slowly decays unless Location Score is very high."
+      ],
+      "modifiers": ["eventHypeModifier", "influencerVisits"],
+      "notes": "Model diminishing returns and momentum effects (carryover buzz)."
+    },
+    {
+      "category": "Sound Equipment Depreciation",
+      "billingCycle": "monthly",
+      "typicalBasis": "Equipment Value × Depreciation Rate",
+      "costFormula": "depreciation = soundRigValue * monthlyDepreciationRate",
+      "params": {
+        "soundRigValue": 0,
+        "monthlyDepreciationRate": 0.015
+      },
+      "dependsOn": ["showQualityScore", "bandTierCap"],
+      "effects": [
+        "Encourages reinvestment; old gear lowers Show Quality if not replaced."
+      ],
+      "modifiers": ["maintenanceSchedule", "usageIntensity"],
+      "notes": "Link to an asset lifecycle system (upgrade every X years)."
+    },
+    {
+      "category": "Inventory Holding Cost (Drinks)",
+      "billingCycle": "monthly",
+      "typicalBasis": "Inventory Value × Small %",
+      "costFormula": "inventoryHolding = inventoryValue * holdingRate + spoilageCost",
+      "params": {
+        "inventoryValue": 0,
+        "holdingRate": 0.01,
+        "spoilageCost": 0
+      },
+      "dependsOn": [
+        "drinkSalesPerGuest",
+        "monthlyAttendance",
+        "storageKitchenSpace"
+      ],
+      "effects": [
+        "Large buffers increase carrying cost.",
+        "Perishables spoil faster when demand is low."
+      ],
+      "modifiers": ["coldStorageQuality", "supplierLeadTime"],
+      "notes": "Model safety stock and reorder points to reduce spoilage."
+    },
+    {
+      "category": "Taxes & City Fees",
+      "billingCycle": "monthly",
+      "typicalBasis": "Revenue × Tax Rate OR Fixed",
+      "costFormula": "taxes = max(fixedCityFees, monthlyRevenue * effectiveTaxRate)",
+      "params": {
+        "fixedCityFees": 0,
+        "effectiveTaxRate": 0.0
+      },
+      "dependsOn": ["monthlyRevenue", "complianceEventRisk"],
+      "effects": [
+        "Can include municipal entertainment tax.",
+        "Low compliance may trigger audits."
+      ],
+      "modifiers": ["taxHoliday", "nonProfitExemption", "auditEvent"],
+      "notes": "Include back-taxes and penalties on audit failures."
+    },
+    {
+      "category": "Noise Fines / Complaints",
+      "billingCycle": "probabilistic",
+      "typicalBasis": "Probabilistic",
+      "costFormula": "expectedNoiseFines = noiseFineProbability * avgFineAmount",
+      "params": {
+        "noiseFineProbability": 0.0,
+        "avgFineAmount": 0
+      },
+      "dependsOn": ["soundIsolation", "noiseFineRisk", "openHoursCap"],
+      "effects": [
+        "Tied to Sound Isolation & Compliance Score.",
+        "Can be significant spikes."
+      ],
+      "modifiers": [
+        "neighborTolerance",
+        "lateNightEvents",
+        "curfewEnforcement"
+      ],
+      "notes": "Use event-based spikes; probability increases with poor isolation and late hours."
+    }
+  ]
+}

@@ -76,6 +76,7 @@ export default function Restaurant() {
               <tr>
                 <th>Variable</th>
                 <th>Value</th>
+                <th>Base Value</th>
                 <th>Description</th>
               </tr>
             </thead>
@@ -84,6 +85,7 @@ export default function Restaurant() {
                 <tr>
                   <td>{r.variable}</td>
                   <td>{r.value}</td>
+                  <td>{r.base_value}</td>
                   <td>{r.description}</td>
                 </tr>
               ))}
