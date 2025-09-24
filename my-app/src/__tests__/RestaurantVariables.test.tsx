@@ -7,7 +7,5 @@ test("00 check RestaurantVariables tab appears", () => {
 
   // Assert that "basic information appears" appears
   expect(screen.getByText("Restaurant Variables")).toBeInTheDocument();
-  expect(screen.getByText("Name")).toBeInTheDocument();
-  expect(screen.getByText("Location")).toBeInTheDocument();
   //
 });

@@ -8,6 +8,7 @@
       {
         "attribute": "Floor Area",
         "value": 0.0,
+        "value_type": "number",
         "unit": "m²",
         "range": "80–600",
         "effect": "Sets max capacity (≈ area ÷ 1.2 m² per person) and scales rent & cleaning cost.",
@@ -16,6 +17,7 @@
       {
         "attribute": "Ceiling Height",
         "value": 0.0,
+        "value_type": "number",
         "unit": "m",
         "range": "2.5–7",
         "effect": "High = better acoustics, larger acts possible. Very low → guest discomfort penalty.",
@@ -24,6 +26,7 @@
       {
         "attribute": "Floor Plan Complexity",
         "value": 0.0,
+        "value_type": "number",
         "unit": "0–1",
         "range": "0.2–0.9",
         "effect": "Higher complexity → more bottlenecks, reduces drink sales by up to 15%.",
@@ -32,6 +35,7 @@
       {
         "attribute": "Number of Rooms",
         "value": 0.0,
+        "value_type": "number",
         "unit": "count",
         "range": "1–5",
         "effect": "More rooms = VIP zones possible but higher maintenance cost.",
@@ -42,6 +46,7 @@
       {
         "attribute": "Stage Size",
         "value": 0.0,
+        "value_type": "number",
         "unit": "m²",
         "range": "10–80",
         "effect": "Affects band fee negotiations and max band tier you can book.",
@@ -50,6 +55,7 @@
       {
         "attribute": "Lighting Quality",
         "value": 0.0,
+        "value_type": "number",
         "unit": "0–1",
         "range": "0.1–1.0",
         "effect": "Adds to show quality score, boosts ticket demand up to +10%.",
@@ -58,6 +64,7 @@
       {
         "attribute": "Sound Isolation",
         "value": 0.0,
+        "value_type": "number",
         "unit": "dB",
         "range": "20–65",
         "effect": "Reduces risk of noise fines and curfew enforcement.",
@@ -66,6 +73,7 @@
       {
         "attribute": "Power Capacity",
         "value": 0.0,
+        "value_type": "number",
         "unit": "kW",
         "range": "10–50",
         "effect": "Must exceed band equipment demand. Low = forced smaller acts.",
@@ -76,6 +84,7 @@
       {
         "attribute": "Air Conditioning / Ventilation",
         "value": 0.0,
+        "value_type": "number",
         "unit": "0–1",
         "range": "0.2–1.0",
         "effect": "High = guests stay longer (+drink sales), low = -10% attendance on hot nights.",
@@ -84,6 +93,7 @@
       {
         "attribute": "Bar Count",
         "value": 0.0,
+        "value_type": "number",
         "unit": "count",
         "range": "1–4",
         "effect": "More bars = shorter wait, +drink sales per guest.",
@@ -92,6 +102,7 @@
       {
         "attribute": "Restroom Count",
         "value": 0.0,
+        "value_type": "number",
         "unit": "count",
         "range": "1–6",
         "effect": "Too low = guest satisfaction ↓, can cause fines.",
@@ -100,6 +111,7 @@
       {
         "attribute": "Seating Availability",
         "value": 0.0,
+        "value_type": "number",
         "unit": "0–1",
         "range": "0–1",
         "effect": "High seating → older demographics attend more, low seating good for standing shows.",
@@ -108,6 +120,7 @@
       {
         "attribute": "Aesthetics / Theme",
         "value": 0.0,
+        "value_type": "number",
         "unit": "0–1",
         "range": "0.3–1.0",
         "effect": "Adds base attractiveness score (demand multiplier).",
@@ -118,6 +131,7 @@
       {
         "attribute": "Fire Exits",
         "value": 0.0,
+        "value_type": "number",
         "unit": "count",
         "range": "1–4",
         "effect": "Fewer exits = cap on max capacity and risk of fines/shutdown.",
@@ -125,7 +139,8 @@
       },
       {
         "attribute": "Fire Suppression Rating",
-        "value": 0.0,
+        "value": "OK",
+        "value_type": "string",
         "unit": "enum",
         "range": ["Poor", "OK", "Good"],
         "effect": "Influences insurance cost & compliance events.",
@@ -133,7 +148,8 @@
       },
       {
         "attribute": "Zoning/Curfew",
-        "value": 0.0,
+        "value": "22:00–04:00",
+        "value_type": "string",
         "unit": "closing_time",
         "range": "22:00–04:00",
         "effect": "Hard cap on open hours, affects total sales potential.",
@@ -143,7 +159,8 @@
     "support_and_backstage": [
       {
         "attribute": "Backstage Space",
-        "value": 0.0,
+        "value": "None",
+        "value_type": "string",
         "unit": "qualitative",
         "range": ["None", "Small", "Medium", "Large"],
         "effect": "Improves artist happiness → cheaper booking fees, bigger acts possible.",
@@ -151,7 +168,8 @@
       },
       {
         "attribute": "Storage / Kitchen Space",
-        "value": 0.0,
+        "value": "None",
+        "value_type": "string",
         "unit": "qualitative",
         "range": ["None", "Partial", "Full"],
         "effect": "Allows extra revenue (food, merch), reduces logistics costs.",
@@ -162,6 +180,7 @@
       {
         "attribute": "Parking Capacity",
         "value": 0.0,
+        "value_type": "number",
         "unit": "spots",
         "range": "0–80",
         "effect": "Slightly increases attendance for driving demographics.",
@@ -169,7 +188,8 @@
       },
       {
         "attribute": "Outdoor Space",
-        "value": 0.0,
+        "value": "None",
+        "value_type": "string",
         "unit": "qualitative",
         "range": ["None", "Small Patio", "Large Patio"],
         "effect": "Adds warm-weather capacity, day events possible.",
@@ -177,7 +197,8 @@
       },
       {
         "attribute": "Visibility / Foot Traffic",
-        "value": 0.0,
+        "value": "Low",
+        "value_type": "string",
         "unit": "qualitative",
         "range": ["Low", "Medium", "High"],
         "effect": "Raises walk-in guests (free marketing).",
