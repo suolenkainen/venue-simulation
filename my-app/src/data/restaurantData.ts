@@ -1,7 +1,9 @@
 export type Upgradeable = boolean | "usually_no" | "sometimes" | "partial";
+export type Value = string | number | string[];
 
 export type AttributeRow = {
   attribute: string;
+  value: Value;
   unit:
     | string
     | "closing_time"
@@ -33,8 +35,8 @@ export type RestaurantInfo = {
   venue_physical_characteristics: RestaurantPhysical;
 };
 
-// The example JSON transformed into a typed constant:
-export const restaurantExample: RestaurantInfo = {
+// The  JSON transformed into a typed constant:
+export const restaurantInfo: RestaurantInfo = {
   information: {
     restaurant_name: "",
     location: "",
@@ -43,6 +45,7 @@ export const restaurantExample: RestaurantInfo = {
     space_and_layout: [
       {
         attribute: "Floor Area",
+        value: "1.0",
         unit: "m²",
         range: "80–600",
         effect:
@@ -51,6 +54,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Ceiling Height",
+        value: "1.0",
         unit: "m",
         range: "2.5–7",
         effect:
@@ -59,6 +63,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Floor Plan Complexity",
+        value: "1.0",
         unit: "0–1",
         range: "0.2–0.9",
         effect:
@@ -67,6 +72,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Number of Rooms",
+        value: "1.0",
         unit: "count",
         range: "1–5",
         effect: "More rooms = VIP zones possible but higher maintenance cost.",
@@ -76,6 +82,7 @@ export const restaurantExample: RestaurantInfo = {
     show_infrastructure: [
       {
         attribute: "Stage Size",
+        value: "1.0",
         unit: "m²",
         range: "10–80",
         effect: "Affects band fee negotiations and max band tier you can book.",
@@ -83,6 +90,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Lighting Quality",
+        value: "1.0",
         unit: "0–1",
         range: "0.1–1.0",
         effect: "Adds to show quality score, boosts ticket demand up to +10%.",
@@ -90,6 +98,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Sound Isolation",
+        value: "1.0",
         unit: "dB",
         range: "20–65",
         effect: "Reduces risk of noise fines and curfew enforcement.",
@@ -97,6 +106,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Power Capacity",
+        value: "1.0",
         unit: "kW",
         range: "10–50",
         effect: "Must exceed band equipment demand. Low = forced smaller acts.",
@@ -106,6 +116,7 @@ export const restaurantExample: RestaurantInfo = {
     comfort_and_guest_experience: [
       {
         attribute: "Air Conditioning / Ventilation",
+        value: "1.0",
         unit: "0–1",
         range: "0.2–1.0",
         effect:
@@ -114,6 +125,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Bar Count",
+        value: "1.0",
         unit: "count",
         range: "1–4",
         effect: "More bars = shorter wait, +drink sales per guest.",
@@ -121,6 +133,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Restroom Count",
+        value: "1.0",
         unit: "count",
         range: "1–6",
         effect: "Too low = guest satisfaction ↓, can cause fines.",
@@ -128,6 +141,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Seating Availability",
+        value: "1.0",
         unit: "0–1",
         range: "0–1",
         effect:
@@ -136,6 +150,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Aesthetics / Theme",
+        value: "1.0",
         unit: "0–1",
         range: "0.3–1.0",
         effect: "Adds base attractiveness score (demand multiplier).",
@@ -145,6 +160,7 @@ export const restaurantExample: RestaurantInfo = {
     safety_and_compliance: [
       {
         attribute: "Fire Exits",
+        value: "1.0",
         unit: "count",
         range: "1–4",
         effect: "Fewer exits = cap on max capacity and risk of fines/shutdown.",
@@ -152,6 +168,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Fire Suppression Rating",
+        value: "1.0",
         unit: "enum",
         range: ["Poor", "OK", "Good"],
         effect: "Influences insurance cost & compliance events.",
@@ -159,6 +176,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Zoning/Curfew",
+        value: "1.0",
         unit: "closing_time",
         range: "22:00–04:00",
         effect: "Hard cap on open hours, affects total sales potential.",
@@ -168,6 +186,7 @@ export const restaurantExample: RestaurantInfo = {
     support_and_backstage: [
       {
         attribute: "Backstage Space",
+        value: "1.0",
         unit: "qualitative",
         range: ["None", "Small", "Medium", "Large"],
         effect:
@@ -176,6 +195,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Storage / Kitchen Space",
+        value: "1.0",
         unit: "qualitative",
         range: ["None", "Partial", "Full"],
         effect: "Allows extra revenue (food, merch), reduces logistics costs.",
@@ -185,6 +205,7 @@ export const restaurantExample: RestaurantInfo = {
     external_and_access: [
       {
         attribute: "Parking Capacity",
+        value: "1.0",
         unit: "spots",
         range: "0–80",
         effect: "Slightly increases attendance for driving demographics.",
@@ -192,6 +213,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Outdoor Space",
+        value: "1.0",
         unit: "qualitative",
         range: ["None", "Small Patio", "Large Patio"],
         effect: "Adds warm-weather capacity, day events possible.",
@@ -199,6 +221,7 @@ export const restaurantExample: RestaurantInfo = {
       },
       {
         attribute: "Visibility / Foot Traffic",
+        value: "1.0",
         unit: "qualitative",
         range: ["Low", "Medium", "High"],
         effect: "Raises walk-in guests (free marketing).",

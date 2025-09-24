@@ -17,11 +17,6 @@ export default function Restaurant() {
 
   const data = restaurantInfo.venue_physical_characteristics;
 
-  const handleEdit = () => {
-    setDraftName(name);
-    setDraftLocation(location);
-    setIsEditing(true);
-  };
   const handleCancel = () => setIsEditing(false);
   const handleSave = () => {
     setName(draftName.trim());
@@ -44,7 +39,7 @@ export default function Restaurant() {
 
   return (
     <div>
-      <h2>Restaurant</h2>
+      <h2>Restaurant Variables</h2>
 
       {/* Basic info */}
       {!isEditing ? (
@@ -62,10 +57,6 @@ export default function Restaurant() {
               {location || <em className="muted">(not set)</em>}
             </div>
           </div>
-
-          <button id="edit-button" className="btn" onClick={handleEdit}>
-            Edit
-          </button>
         </>
       ) : (
         <>

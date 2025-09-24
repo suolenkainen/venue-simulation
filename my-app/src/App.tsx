@@ -1,15 +1,21 @@
 import React, { useEffect, useState, type JSX } from "react";
 import Finance from "./Finance";
 import Restaurant from "./Restaurant";
+import RestaurantVariables from "./RestaurantVariables";
 import Simulation from "./Simulation";
 
 import "./global.css";
 
-type TabId = "finance" | "restaurant" | "simulation";
+type TabId = "finance" | "restaurant" | "restaurantVariables" | "simulation";
 
 const TABS: { id: TabId; label: string; render: () => JSX.Element }[] = [
   { id: "finance", label: "Finance", render: () => <Finance /> },
   { id: "restaurant", label: "Restaurant", render: () => <Restaurant /> },
+  {
+    id: "restaurantVariables",
+    label: "Restaurant Variables",
+    render: () => <RestaurantVariables />,
+  },
   { id: "simulation", label: "Simulation", render: () => <Simulation /> },
 ];
 

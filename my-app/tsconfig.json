@@ -14,8 +14,8 @@
     "noEmit": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    // EITHER remove "types" completely,
-    // OR include react + react-dom explicitly:
-    "types": ["vite/client", "react", "react-dom"]
+    "types": ["vite/client", "react", "react-dom"],
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   }
 }
