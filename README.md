@@ -40,9 +40,9 @@ This project focuses on **number-crunching**, **reproducible stochastic simulati
 ## Current Status
 
 ✅ **Scaffolded Vite + React + TypeScript app**  
-✅ **Minimal "App" page with ticking counter**  
+✅ **Minimal tabbed `App` page (Finance, Restaurant, Restaurant Variables, Simulation)**
 ✅ **Vitest + @testing-library/react working for unit/component tests**  
-✅ **First passing test (`App.test.tsx`) validating counter increments**
+✅ **First passing test (`App.test.tsx`) validating that the App renders**
 
 ---
 
@@ -72,7 +72,11 @@ This project focuses on **number-crunching**, **reproducible stochastic simulati
 
 ## Testing
 
-Tests live under `__tests__/`. Example:
+Tests live under `src/__tests__/` in the `my-app` folder. The project includes a small test
+setup file (`src/setupTests.ts`) that imports `@testing-library/jest-dom` which provides
+convenient matchers such as `toBeInTheDocument()` and `toHaveTextContent()`.
+
+Example test (present at `my-app/src/__tests__/App.test.tsx`):
 
 ```tsx
 import { render, screen } from "@testing-library/react";
@@ -80,9 +84,27 @@ import { expect, test } from "vitest";
 import App from "../App";
 
 test("00 renders heading", () => {
-  render(<App />);
-
-  // Assert that "This is a test" appears
-  expect(screen.getByText("This is a test")).toBeInTheDocument();
+   render(<App />);
+   expect(screen.getByText("This is a test")).toBeInTheDocument();
 });
 ```
+
+How to run tests (from repository root):
+
+```powershell
+cd my-app
+npm install
+npm run test
+```
+
+Open the Vitest UI for an interactive view of tests:
+
+```powershell
+cd my-app
+npm run test:ui
+```
+
+Notes:
+- The app is a Vite project located in `my-app/`.
+- Use `npm run dev` (inside `my-app`) to start the dev server with HMR.
+- Use `npm run build` to compile TypeScript and bundle the app for production.
