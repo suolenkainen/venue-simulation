@@ -140,6 +140,7 @@ export default function Simulation() {
         height={320}
         margin={{ top: 16, right: 16, bottom: 32, left: 40 }}
         data={history}
+        currentSeconds={seconds}
       />
     </div>
   );
@@ -157,11 +158,13 @@ function ChartBox({
   height = 320,
   margin = { top: 16, right: 16, bottom: 32, left: 40 },
   data,
+  currentSeconds,
 }: {
   width?: number;
   height?: number;
   margin?: Margin;
   data?: number[];
+  currentSeconds?: number;
 }) {
   const innerW = width - margin.left - margin.right;
   const innerH = height - margin.top - margin.bottom;
@@ -179,6 +182,28 @@ function ChartBox({
     [yTickCount]
   );
 
+  // compute dynamic X labels every 10 seconds based on data length and currentSeconds
+  const xLabels = useMemo(() => {
+    if (!data || data.length === 0)
+      return [] as Array<{ pos: number; label: string }>;
+    const newestSeconds = currentSeconds ?? 0;
+    const points = data.length;
+    const interval = 10; // seconds between labels
+    // determine the time at the leftmost data point
+    const leftSeconds = Math.max(0, newestSeconds - (points - 1));
+    // pick label times aligned to multiples of `interval` within the window
+    const labels: Array<{ pos: number; label: string }> = [];
+    const startLabel = Math.ceil(leftSeconds / interval) * interval;
+    for (let t = startLabel; t <= newestSeconds; t += interval) {
+      const idx = t - leftSeconds; // index into data (seconds offset)
+      const pos = Math.max(0, Math.min(1, idx / Math.max(1, points - 1)));
+      const mm = String(Math.floor(t / 60)).padStart(2, "0");
+      const ss = String(t % 60).padStart(2, "0");
+      labels.push({ pos, label: `${mm}:${ss}` });
+    }
+    return labels;
+  }, [data, currentSeconds]);
+
   // Basic scales (0..1 for now — we’ll map real data later)
   const x = (t: number) => t * innerW;
   const y = (t: number) => innerH - t * innerH;
@@ -194,7 +219,7 @@ function ChartBox({
   return (
     <svg
       width={width}
-      height={height}
+      height={height + 20}
       role="img"
       aria-label="Simulation chart frame"
     >
@@ -213,11 +238,21 @@ function ChartBox({
               <line x1={0} x2={-6} y1={0} y2={0} stroke={axisColor} />
               {/* label */}
               <text x={-10} y={4} textAnchor="end" {...font}>
-                {(t * 100).toFixed(0)}
+                {(t * 2 - 1).toFixed(1)}
               </text>
             </g>
           );
         })}
+
+        {/* center (0) line highlight */}
+        <line
+          x1={0}
+          x2={innerW}
+          y1={y(0.5)}
+          y2={y(0.5)}
+          stroke="#ccc"
+          strokeWidth={1}
+        />
 
         {/* X grid lines + ticks + labels */}
         {xTicks.map((t, i) => {
@@ -234,11 +269,24 @@ function ChartBox({
                 y2={innerH + 6}
                 stroke={axisColor}
               />
-              {/* label under the axis */}
-              <text x={0} y={innerH + 20} textAnchor="middle" {...font}>
-                {(t * 10).toFixed(0)}
-              </text>
+              {/* no static label here; dynamic second labels are rendered separately */}
             </g>
+          );
+        })}
+
+        {/* Dynamic X labels (seconds) */}
+        {xLabels.map((it, i) => {
+          const xx = x(it.pos);
+          return (
+            <text
+              key={`xlabel-${i}`}
+              x={xx}
+              y={innerH + 40}
+              textAnchor="middle"
+              {...font}
+            >
+              {it.label}
+            </text>
           );
         })}
 
