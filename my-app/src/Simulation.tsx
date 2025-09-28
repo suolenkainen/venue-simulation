@@ -1,5 +1,5 @@
 import { useEffect, useState, type JSX } from "react";
-import Clients from "./Clientel";
+import Clientel from "./Clientel";
 import MainSimulation from "./MainSimulation";
 import Shows from "./Shows";
 
@@ -13,7 +13,7 @@ const TABS: { id: TabId; label: string; render: () => JSX.Element }[] = [
     label: "Main Simulation",
     render: () => <MainSimulation />,
   },
-  { id: "clients", label: "Clients", render: () => <Clients /> },
+  { id: "clients", label: "Clients", render: () => <Clientel /> },
   {
     id: "shows",
     label: "Shows",

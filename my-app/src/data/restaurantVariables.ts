@@ -15,6 +15,7 @@ export type RestaurantPhysical = {
   support_and_backstage: AttributeRow[];
   external_and_access: AttributeRow[];
   additional_variables: AttributeRow[];
+  clientele_variables: AttributeRow[];
 };
 
 export type RestaurantInfo = {

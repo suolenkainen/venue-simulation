@@ -260,6 +260,26 @@
         "base_value": 1.0,
         "description": "Temporary multiplier for ticket demand when marketing campaigns run."
       }
+    ],
+    "clientele_variables": [
+      {
+        "variable": "weekdayModifier",
+        "value": 0.5,
+        "base_value": 0.5,
+        "description": "Fraction of the theoretical weekend customer amount that attends on weekdays."
+      },
+      {
+        "variable": "avgDrinkPrice",
+        "value": 6.5,
+        "base_value": 6.5,
+        "description": "Average price per drink in the venue's currency."
+      },
+      {
+        "variable": "turnoverPerHour",
+        "value": 0.2,
+        "base_value": 0.2,
+        "description": "Fraction of total customers who turnover (leave & replaced) per hour."
+      }
     ]
   }
 }
